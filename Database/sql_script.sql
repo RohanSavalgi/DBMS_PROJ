@@ -10,17 +10,17 @@
 -- -----------------------------------------------------
 -- Table `CAB_RIDES`.`VEHICLE`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `VEHICLE` (
-  `Vehicle_Name` VARCHAR(30) NOT NULL,
-  `Type` VARCHAR(15) NULL,
-  `Make` VARCHAR(30) NULL,
-  PRIMARY KEY (`Vehicle_Name`));
+CREATE TABLE VEHICLE (
+  Vehicle_Name VARCHAR(30) NOT NULL,
+  Type VARCHAR(15) NULL,
+  Make VARCHAR(30) NULL,
+  PRIMARY KEY (Vehicle_Name));
 
 
 -- -----------------------------------------------------
 -- Table `CAB_RIDES`.`DRIVERS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `DRIVERS` (
+CREATE TABLE DRIVERS (
   `DriverId` INT NOT NULL AUTO_INCREMENT,
   `First_Name` VARCHAR(45) NOT NULL,
   `Last_Name` VARCHAR(45) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `DRIVERS` (
     ON DELETE NO ACTION
     ON UPDATE CASCADE);
 
-CREATE UNIQUE INDEX `DriverId_uniq` ON `CAB_RIDES`.`DRIVERS` (`DriverId` ASC) VISIBLE;
+CREATE UNIQUE INDEX DriverId_uniq ON CAB_RIDES.DRIVERS (DriverId ASC) VISIBLE;
 
 CREATE INDEX `Vehicle_name_idx` ON `CAB_RIDES`.`DRIVERS` (`Vehicle` ASC) VISIBLE;
 
@@ -49,7 +49,9 @@ CREATE UNIQUE INDEX `RiderId_uniq` ON `CAB_RIDES`.`RIDERS` (`RiderId` ASC) VISIB
 -- -----------------------------------------------------
 -- Table `CAB_RIDES`.`RIDES`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS RIDES (RideId INT NOT NULL AUTO_INCREMENT,DriverId INT NOT NULL,RiderId INT NOT NULL,DateTime_start DATETIME NOT NULL,DateTime_end DATETIME NOT NULL,Pickup_loc VARCHAR(60) NOT NULL,Drop_loc VARCHAR(60) NOT NULL,Type VARCHAR(30) NULL,Fare INT NULL,PRIMARY KEY (RideId),CONSTRAINT DriverId FOREIGN KEY (DriverId) REFERENCES DRIVERS (DriverId) ON UPDATE CASCADE,CONSTRAINT RiderId FOREIGN KEY (RiderId) REFERENCES RIDERS (RiderId) ON UPDATE CASCADE);
+CREATE TABLE IF NOT EXISTS RIDES (
+  RideId INT NOT NULL AUTO_INCREMENT,
+DriverId INT NOT NULL,RiderId INT NOT NULL,DateTime_start DATETIME NOT NULL,DateTime_end DATETIME NOT NULL,Pickup_loc VARCHAR(60) NOT NULL,Drop_loc VARCHAR(60) NOT NULL,Type VARCHAR(30) NULL,Fare INT NULL,PRIMARY KEY (RideId),CONSTRAINT DriverId FOREIGN KEY (DriverId) REFERENCES DRIVERS (DriverId) ON UPDATE CASCADE,CONSTRAINT RiderId FOREIGN KEY (RiderId) REFERENCES RIDERS (RiderId) ON UPDATE CASCADE);
 
 CREATE UNIQUE INDEX `RideId_uniq` ON `CAB_RIDES`.`RIDES` (`RideId` ASC) VISIBLE;
 
